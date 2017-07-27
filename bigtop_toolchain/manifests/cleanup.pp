@@ -18,6 +18,7 @@ class bigtop_toolchain::cleanup {
     /(?i:(centos|fedora|amazon))/ => 'yum clean all',
     /(?i:(SLES|opensuse))/ => 'zypper clean -a',
     /Ubuntu|Debian/        => 'apt-get clean',
+    /Alpine/        => 'apk cache clean',
   } 
   
   exec { 'remove archives':

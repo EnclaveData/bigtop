@@ -78,6 +78,13 @@ class bigtop_toolchain::protobuf {
            }
            $package_name = 'protobuf-devel-2.5.0-6.1'
          }
+         /(?i:(Alpine))/:{
+           exec { 'install_mrdocs_repo':
+             command => '/sbin/apk add protobuf protobuf-dev',
+             unless => "/sbin/apk info protobuf protobuf-dev",
+           }
+           $package_name = 'protobuf-dev-3.1.0-r1'
+         }
       }
       package { $package_name:
         ensure => present,
