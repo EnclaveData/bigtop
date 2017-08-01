@@ -98,6 +98,7 @@ def nativePackaging = {
     commandLine "/bin/bash", "-c",
     """dpkg-query -S /bin/sh && exit 1
        rpm -qf /bin/sh && exit 2
+       apk info --who-owns /bin/sh && exit 3
        exit 0
     """
     ignoreExitValue true
@@ -105,6 +106,7 @@ def nativePackaging = {
     standardOutput devNull
   }
   [false, [pkg:"deb", repo:"apt"], [pkg:"rpm", repo:"yum"]][result.getExitValue()]
+  [false, [pkg:"deb", repo:"apt"], [pkg:"rpm", repo:"yum"], [pkg:"apk", repo:"apk"]][result.getExitValue()]
 }.call()
 
 def generateDistributionsFile = { file ->
